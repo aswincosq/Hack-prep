@@ -31,8 +31,8 @@ export default{
         width: 320px;
         height: 40px;
         border: 1px solid skyblue;
-        background: skyblue;
-        color: #fff;
+        background: primary;
+        color: red;
         cursor: pointer;
 }
 </style>
