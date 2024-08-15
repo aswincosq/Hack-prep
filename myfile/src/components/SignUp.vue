@@ -34,6 +34,7 @@ return{
                         {
                                 alert("Sign-Up done ")
                                 localStorage.setItem("user-info",result,JSON.stringify(result.data))
+                                this.$router.push({name:'Home'})
                         }
                 }
         }
