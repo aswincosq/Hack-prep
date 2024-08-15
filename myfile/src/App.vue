@@ -1,8 +1,8 @@
 <template>
   <router-view />
 </template>
-
 <script>
+/* eslint-disable vue/multi-word-component-names, vue/no-unused-components */
 import SignUp from './components/SignUp.vue'
 
 
