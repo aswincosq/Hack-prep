@@ -5,6 +5,30 @@
       "email": "anil@test.com",
       "name": "anil",
       "password": "anil@123"
+    },
+    {
+      "id": "a350",
+      "name": "salima",
+      "email": "sa@gmail.com",
+      "password": "sa@123"
+    },
+    {
+      "id": "ad2f",
+      "name": "salima",
+      "email": "sa@gmail.com",
+      "password": "dfcg"
+    },
+    {
+      "id": "bfcb",
+      "name": "salima",
+      "email": "sa@gmail.com",
+      "password": "dfcg"
+    },
+    {
+      "id": "d4f3",
+      "name": "salima",
+      "email": "sa@gmail.com",
+      "password": "dfcg"
     }
   ]
 }
