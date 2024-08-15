@@ -5,10 +5,11 @@
     <input type="text" v-model="name" placeholder="Enter Name" />
     <input type="text" v-model="email" placeholder="Enter Email" />
     <input type="password" v-model="password" placeholder="Enter Password" />
-    <button>Sign Up</button>
+    <button v-on:click="SignUp" >Sign Up</button>
     </div>
 </template>
 <script>
+import axios from 'axios'
 export default{
         name:'SignUp',
         data()
@@ -21,9 +22,19 @@ return{
         
         },
         methods:{
-                Signup()
+               async SignUp()
                 {
-                        console.warn("Signup",this.name,this.email,this.password)
+                        let result = await axios. post("http://localhost:3000/users",{
+                                name:this.name,
+                                email:this.email,
+                                password:this.password
+                        });
+                        console.warn(result);
+                        if(result.status==201)
+                        {
+                                alert("Sign-Up done ")
+                                localStorage.setItem("user-info",result,JSON.stringify(result.data))
+                        }
                 }
         }
 
@@ -47,7 +58,7 @@ return{
         width: 320px;
         height: 40px;
         border: 1px solid skyblue;
-        background: primary;
+        background: skyblue;
         color: red;
         cursor: pointer;
 }
