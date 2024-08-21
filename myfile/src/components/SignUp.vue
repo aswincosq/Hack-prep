@@ -6,6 +6,9 @@
     <input type="text" v-model="email" placeholder="Enter Email" />
     <input type="password" v-model="password" placeholder="Enter Password" />
     <button v-on:click="SignUp" >Sign Up</button>
+    <p>
+        <router-link to="/login" >LoginPage</router-link>
+    </p>
     </div>
 </template>
 <script>
@@ -34,7 +37,7 @@ return{
                         {
                                 alert("Sign-Up done ")
                                 localStorage.setItem("user-info",result,JSON.stringify(result.data))
-                                this.$router.push({name:'Home'})
+                                this.$router.push({name:'MyHome'})
                         }
                 }
         }
@@ -42,25 +45,5 @@ return{
 }
 </script>
 <style>
-.logo{
-        width:100px
-}
-.register input{
-    width: 300px;
-    height: 40px;
-    padding-left: 20px;
-    display: block;
-    margin-bottom: 30px;
-    margin-right: auto;
-    margin-left: auto;
-    border: 1px solid skyblue;
-}
-.register button{
-        width: 320px;
-        height: 40px;
-        border: 1px solid skyblue;
-        background: skyblue;
-        color: red;
-        cursor: pointer;
-}
+
 </style>
