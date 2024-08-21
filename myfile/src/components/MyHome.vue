@@ -1,5 +1,7 @@
 <template>
+    
     <h1>Hello user, Welcome on Home page</h1>
+    <HeaderBar />
 </template>
 <script>
 import HeaderBar from './HeaderBar.vue'
