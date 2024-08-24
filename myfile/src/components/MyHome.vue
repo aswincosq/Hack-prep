@@ -1,6 +1,6 @@
 <template>
     
-    <h1>Hello user, Welcome on Home page</h1>
+    <h1>Hello user, Welcome to the Home page</h1>
     <HeaderBar />
 </template>
 <script>
