@@ -27,7 +27,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="game,index in games":key="index">
+                <tr v-for="game,index in games" :key="index">
                     <td>{{ game.title }}</td>
                     <td>{{game.genre}}</td>
                     <td>{{game.played}}</td>
