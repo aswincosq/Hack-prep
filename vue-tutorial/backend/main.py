@@ -67,21 +67,34 @@ def all_games():
     return jsonify(response_object)
 
 
-@app.route('/games/<game_id>', methods=['PUT'])
+@app.route('/games/<game_id>', methods=['PUT', 'DELETE'])  # Added DELETE method
 def single_game(game_id):
-    response_object = {'status':'success'}
+    response_object = {'status': 'success'}
+    game_found = False  # Flag to check if game is found (New)
+
     if request.method == "PUT":
         post_data = request.get_json()
-        remove_game(game_id)
-        Games.append({
-            'id' : game_id,
-            'title': post_data.get('title'),
-            'genre': post_data.get('genre'),
-            'played': post_data.get('played')})
-        response_object['message'] = 'Game Updated !'
-    else:
-        response_object['games'] = Games
-    return jsonify(response_object)
+        for game in Games:  # Loop through games to find the correct one (Modified)
+            if game['id'] == game_id:
+                game['title'] = post_data.get('title')  # Directly update title (New)
+                game['genre'] = post_data.get('genre')  # Directly update genre (New)
+                game['played'] = post_data.get('played')  # Directly update played status (New)
+                game_found = True
+                response_object['message'] = 'Game Updated!'  # Updated message
+                break
+        if not game_found:  # Error handling for game not found (New)
+            response_object = {'status': 'failure', 'message': 'Game not found!'}
+            return jsonify(response_object), 404  # Return 404 if game not found (New)
+    
+    if request.method == "DELETE":  # New block to handle DELETE requests
+        if remove_game(game_id):  # Use existing remove_game function
+            response_object['message'] = 'Game Deleted!'  # New delete message
+        else:
+            response_object = {'status': 'failure', 'message': 'Game not found!'}  # Error handling for game not found
+            return jsonify(response_object), 404  # Return 404 if game not found (New)
+    
+    return jsonify(response_object)  # Return response
+
 
 def remove_game(game_id):
     for game in Games:

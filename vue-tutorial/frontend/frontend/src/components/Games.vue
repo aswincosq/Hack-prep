@@ -10,17 +10,15 @@
         </h1>
         <hr><br>
 
-        <!--Alert Message-->
+        <!-- Alert Message -->
         <b-alert variant="success" v-if="showMessage" show>{{ message }}</b-alert>
-        <button type="button" class="btn btn-success btn-sm" v-b-modal.game-modal> 
+        <button type="button" class="btn btn-success btn-sm" @click="showAddGameModal = true"> 
             Add Game
         </button>
         <br><br>
         <table class="table table-hover">
-            <!--Table Head-->
             <thead>
                 <tr>
-                    <!--Table header cells-->
                     <th scope="col">Title</th>
                     <th scope="col">Genre</th>
                     <th scope="col">Played</th>
@@ -37,9 +35,8 @@
                     </td>
                     <td>
                         <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-info btn-sm" v-b-modal.game-update-modal
-                                    @click="editGame(game)">Update</button>
-                            <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="button" class="btn btn-info btn-sm" @click="editGame(game)">Update</button>
+                            <button type="button" class="btn btn-danger btn-sm" @click="deleteGame(game.id)">Delete</button>
                         </div>
                     </td>
                 </tr>
@@ -49,89 +46,42 @@
         </div>
         </div>
 
-        <!--first modal for adding-->
-
-        <b-modal ref="addGameModal"
-                 id="game-modal"
-                 title="Add a new game" hide-backdrop hide-footer>
-        <b-form @submit="onSubmit" @reset="onReset" class="w-100">
-            <b-form-group id="form-title-group" 
-                          label="Title:"
-                          label-for="form-title-input">
-                <b-form-input id="form-title-input"
-                              type="text"
-                              v-model="addGameForm.title"
-                              required
-                              placeholder="Enter Game">
-                </b-form-input>
+        <!-- Add Game Modal -->
+        <b-modal v-model="showAddGameModal"
+                    title="Add a new game" hide-footer>
+        <b-form @submit="onSubmit" @reset="onReset">
+            <b-form-group id="form-title-group" label="Title:" label-for="form-title-input">
+                <b-form-input id="form-title-input" type="text" v-model="addGameForm.title" required placeholder="Enter Game"></b-form-input>
+                <b-form-invalid-feedback v-if="!addGameForm.title">Please enter a title.</b-form-invalid-feedback>
             </b-form-group>
-            <b-form-group id="form-genre-group" 
-                          label="Genre:"
-                          label-for="form-genre-input">
-                <b-form-input id="form-genre-input"
-                              type="text"
-                              v-model="addGameForm.genre"
-                              required
-                              placeholder="Enter Genre">
-                </b-form-input>
+            <b-form-group id="form-genre-group" label="Genre:" label-for="form-genre-input">
+                <b-form-input id="form-genre-input" type="text" v-model="addGameForm.genre" required placeholder="Enter Genre"></b-form-input>
+                <b-form-invalid-feedback v-if="!addGameForm.genre">Please enter a genre.</b-form-invalid-feedback>
             </b-form-group>
             <b-form-group id="form-played-group">
-                <b-form-checkbox-group v-model="addGameForm.played" id="form-checks">
-                    <b-form-checkbox value="true"> Played </b-form-checkbox>
-                </b-form-checkbox-group>
+                <b-form-checkbox v-model="addGameForm.played"> Played </b-form-checkbox>
             </b-form-group>
-
-            <b-button type="submit" variant="outline-info"> Submit</b-button>
-            <b-button type="reset" variant="outline-danger"> Reset</b-button>
-        
+            <b-button type="submit" variant="outline-info">Submit</b-button>
+            <b-button type="reset" variant="outline-danger">Reset</b-button>
         </b-form>
         </b-modal>
 
-        <!--second modal for updatng-->
-
-        <b-modal ref="updateGameModal"
-                 id="game-update-modal"
-                 title="Update game" hide-backdrop hide-footer>
-        <b-form @submit="onSubmitUpdate" @reset="onResetUpdate" class="w-100">
-            <b-form-group id="form-title-edit-group" 
-                          label="Title:"
-                          label-for="form-title-edit-input">
-                <b-form-input id="form-title-edit-input"
-                              type="text"
-                              v-model.trim="editForm.title"
-                              required
-                              placeholder="Enter Game">
-                </b-form-input>
+        <!-- Update Game Modal -->
+        <b-modal v-model="showUpdateGameModal" title="Update game" hide-footer>
+        <b-form @submit="onSubmitUpdate" @reset="onResetUpdate">
+            <b-form-group id="form-title-edit-group" label="Title:" label-for="form-title-edit-input">
+                <b-form-input id="form-title-edit-input" type="text" v-model="editForm.title" required placeholder="Enter Game"></b-form-input>
             </b-form-group>
-            <b-form-group id="form-genre-edit-group" 
-                          label="Genre:"
-                          label-for="form-genre-edit-input">
-                <b-form-input id="form-genre-edit-input"
-                              type="text"
-                              v-model="editForm.genre"
-                              required
-                              placeholder="Enter Genre">
-                </b-form-input>
+            <b-form-group id="form-genre-edit-group" label="Genre:" label-for="form-genre-edit-input">
+                <b-form-input id="form-genre-edit-input" type="text" v-model="editForm.genre" required placeholder="Enter Genre"></b-form-input>
             </b-form-group>
             <b-form-group id="form-played-edit-group">
-                <b-form-checkbox-group v-model="editForm.played" id="form-checks">
-                    <b-form-checkbox value="true"> Played </b-form-checkbox>
-                </b-form-checkbox-group>
+                <b-form-checkbox v-model="editForm.played"> Played </b-form-checkbox>
             </b-form-group>
-
-            <b-button type="submit" variant="outline-info"> Update </b-button>
-            <b-button type="reset" variant="outline-danger"> Cancel</b-button>
-        
+            <b-button type="submit" variant="outline-info">Update</b-button>
+            <b-button type="reset" variant="outline-danger">Cancel</b-button>
         </b-form>
         </b-modal>
-
-
-
-
-
-
-
-
 
     </div>
 </div>
@@ -139,134 +89,109 @@
 
 <script>
 import axios from 'axios';
+
 export default {
     name: "GamesLibrary",
     data() {
         return {
             games: [],
-            addGameForm: {
-                title: "",
-                genre: "",
-                played: [],
-            },
-            editForm: {
-                id: null,
-                title: "",
-                genre: "",
-                played: [],
-            },
+            addGameForm: { title: "", genre: "", played: false },
+            editForm: { id: null, title: "", genre: "", played: false },
             message: "",
             showMessage: false,
+            showAddGameModal: false,
+            showUpdateGameModal: false,
         };
     },
-    message : "",
     methods:{
-        
         getGames(){
-            const path = 'http://127.0.0.1:5000/games'
-            axios.get(path)
+            axios.get('http://127.0.0.1:5000/games')
             .then((res)=>{
-                this.$set(this, 'games', res.data.games);
+                this.games = res.data.games;
             })
             .catch((err)=>{
                 console.error(err);
             });
         },
-
         addGames(payload){
-            const path = `http://127.0.0.1:5000/games`
-            axios.post(path,payload)
+            axios.post('http://127.0.0.1:5000/games', payload)
             .then(()=>{
                 this.getGames();
-                this.message = " Game Added !";
-                this.showMessage = true;
-                setTimeout(() => {
-                this.showMessage = false;
-            }, 3000);
+                this.showSuccessMessage("Game Added!");
             })
             .catch((err)=>{
                 console.error(err);
             });
         },
-        initForm(){
-            this.addGameForm.title = "";
-            this.addGameForm.genre = "";
-            this.addGameForm.played = [];
+        updateGame(payload, gameID) {
+            axios.put(`http://127.0.0.1:5000/games/${gameID}`, payload)
+                .then(() => {
+                    this.getGames();
+                    this.showSuccessMessage("Game Updated!");
+                })
+                .catch((err) => {
+                    console.error(err);
+                });
+        },
+        deleteGame(gameId) {
+            axios.delete(`http://127.0.0.1:5000/games/${gameId}`)
+                .then(() => {
+                    this.getGames();
+                    this.showSuccessMessage("Game Deleted!");
+                })
+                .catch((error) => {
+                    console.error('Error deleting game:', error);
+                });
         },
         onSubmit(e) {
             e.preventDefault();
-            this.$refs.addGameModal.hide();
-            let played = false;
-            if(this.addGameForm.played[0]) played = true;
+            this.showAddGameModal = false;
             const payload = {
-                title : this.addGameForm.title,
-                genre : this.addGameForm.genre,
-                played,
-            }
+                title: this.addGameForm.title,
+                genre: this.addGameForm.genre,
+                played: this.addGameForm.played
+            };
             this.addGames(payload);
-            this.initForm();
+            this.resetForm();
         },
         onReset(e) {
             e.preventDefault();
-            this.$refs.addGameModal.hide();
-            this.initForm();
-        },
-        updateGame(payload, gameID) {
-            console.log('Updating game:', gameID, payload);
-            const path = `http://127.0.0.1:5000/games/${gameID}`;
-            axios.put(path, payload)
-                .then((response) => {
-                    console.log('Update response:', response);
-                    // Fetch all games again to ensure state is consistent
-                    this.getGames();
-                    this.message = "Game Updated!";
-                    this.showMessage = true;
-                    setTimeout(() => {
-                        this.showMessage = false;
-                    }, 3000);
-                    this.resetEditForm();
-                })
-                .catch((err) => {
-                    console.error('Update error:', err);
-                });
-        },
-        editGame(game) {
-            this.editForm = {
-                id: game.id,
-                title: game.title,
-                genre: game.genre,
-                played: game.played ? [true] : []
-            };
-            console.log('Editing game:', this.editForm);
+            this.showAddGameModal = false;
+            this.resetForm();
         },
         onSubmitUpdate(e) {
             e.preventDefault();
-            this.$refs.updateGameModal.hide();
-            let played = false;
-            if(this.editForm.played[0]) played = true;
+            this.showUpdateGameModal = false;
             const payload = {
                 title: this.editForm.title,
                 genre: this.editForm.genre,
-                played,
+                played: this.editForm.played
             };
-            console.log('Submitting update:', this.editForm.id, payload);
             this.updateGame(payload, this.editForm.id);
-        },
-        resetEditForm() {
-            this.editForm = {
-                id: null,
-                title: '',
-                genre: '',
-                played: []
-            };
+            this.resetEditForm();
         },
         onResetUpdate(e) {
             e.preventDefault();
-            this.$refs.updateGameModal.hide();
+            this.showUpdateGameModal = false;
             this.resetEditForm();
         },
-
-
+        editGame(game) {
+            this.editForm = { id: game.id, title: game.title, genre: game.genre, played: game.played };
+            this.showUpdateGameModal = true;
+        },
+        showSuccessMessage(message) {
+            this.message = message;
+            this.showMessage = true;
+            setTimeout(() => {
+                this.showMessage = false;
+            }, 3000);
+        },
+        resetForm() {
+            this.addGameForm = { title: "", genre: "", played: false };
+        },
+        resetEditForm() {
+            this.editForm = { id: null, title: "", genre: "", played: false };
+        },
     },
     created(){
         this.getGames();
