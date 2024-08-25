@@ -30,7 +30,10 @@
                 <tr v-for="game,index in games" :key="index">
                     <td>{{ game.title }}</td>
                     <td>{{game.genre}}</td>
-                    <td>{{game.played}}</td>
+                    <td>
+                        <span v-if="game.played"> YES </span>
+                        <span v-else> NO </span>
+                    </td>
                     <td>
                         <div class="btn-group" role="group">
                             <button type="button" class="btn btn-info btn-sm">Update</button>
