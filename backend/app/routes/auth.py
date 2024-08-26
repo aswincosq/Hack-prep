@@ -3,9 +3,9 @@ from flask import Blueprint, request, jsonify
 from app.models.doctor import Doctor
 from app import db
 
-auth_bp = Blueprint('auth', __name__)
+bp = Blueprint('auth', __name__)  # Changed from auth_bp to bp
 
-@auth_bp.route('/register/doctor', methods=['POST'])
+@bp.route('/register/doctor', methods=['POST'])  # Changed from auth_bp to bp
 def register_doctor():
     data = request.json
     new_doctor = Doctor(name=data['name'], email=data['email'], specialty=data['specialty'])

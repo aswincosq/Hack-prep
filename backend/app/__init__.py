@@ -1,31 +1,23 @@
-# app/__init__.py
-from flask import Flask, jsonify
+from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from flask_cors import CORS
 from .config import Config
 
 db = SQLAlchemy()
 migrate = Migrate()
 
-def create_app(config_class=Config):
+def create_app():
     app = Flask(__name__)
-    app.config.from_object(config_class)
+    app.config.from_object(Config)
 
     db.init_app(app)
     migrate.init_app(app, db)
-    CORS(app)
 
-    # Import and register blueprints here
-    from .routes import main_bp
-    app.register_blueprint(main_bp)
-
-    @app.errorhandler(404)
-    def not_found(error):
-        return jsonify({"error": "Not found"}), 404
-
-    @app.errorhandler(500)
-    def internal_error(error):
-        return jsonify({"error": "Internal server error"}), 500
+    from .routes import auth, doctor, patient, appointment,prescription
+    app.register_blueprint(auth.bp)
+    app.register_blueprint(doctor.bp)
+    app.register_blueprint(patient.bp)
+    app.register_blueprint(appointment.bp)
+    app.register_blueprint(prescription.bp)
 
     return app
