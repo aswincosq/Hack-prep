@@ -13,11 +13,18 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
-    from .routes import auth, doctor, patient, appointment,prescription
+    from .models import User, Doctor, Patient, Appointment, Prescription
+
+    from .routes import auth, doctor, patient, appointment, prescription,user
     app.register_blueprint(auth.bp)
     app.register_blueprint(doctor.bp)
     app.register_blueprint(patient.bp)
     app.register_blueprint(appointment.bp)
     app.register_blueprint(prescription.bp)
+
+
+    @app.route('/')
+    def hello_world():
+        return 'Hello, Telemedicine!'
 
     return app
