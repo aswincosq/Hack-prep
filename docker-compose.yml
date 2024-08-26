@@ -1,0 +1,27 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./backend:/app
+      - ./data:/app/data
+    environment:
+      - FLASK_ENV=development
+      - DATABASE_URL=sqlite:////app/data/telemedicine.db
+
+  frontend:
+    build: ./telemedicine-frontend
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./telemedicine-frontend:/app
+      - /app/node_modules
+    environment:
+      - VUE_APP_API_URL=http://backend:5000
+
+volumes:
+  data:
