@@ -1,10 +1,10 @@
 <template>
-<img class= "logo" src="../assets/health-logo.jpg" />
+<img class= "logo" src="../assets/fitness-gym.jpg" />
 <h1>Sign Up</h1>
 <div class="register">
-    <input type="text" v-model="name" placeholder="Enter Name" />
-    <input type="text" v-model="email" placeholder="Enter Email" />
-    <input type="password" v-model="password" placeholder="Enter Password" />
+    <input type="text" v-model="name" placeholder="Enter Full Name" />
+    <input type="text" v-model="primary mobile Number" placeholder="Enter primary mobile number" />
+    <input type="text" v-model="alternative mobile Number" placeholder="Enter alternative mobile number" />
     <button v-on:click="SignUp" >Sign Up</button>
     <p>
         <router-link to="/login" >LoginPage</router-link>
@@ -14,13 +14,13 @@
 <script>
 import axios from 'axios'
 export default{
-        name:'SignUp',
+        name:'Registration',
         data()
         {
 return{
         name:'',
-        email:'',
-        password:''
+        primary mobile Number:'',
+        alternative mobile Number:''
 }
         
         },
