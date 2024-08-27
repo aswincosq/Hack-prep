@@ -24,3 +24,6 @@ EXPOSE 8080
 
 # Command to serve the app
 CMD ["http-server", "dist"]
+
+# Install Node.js and npm
+RUN apt-get update && apt-get install -y nodejs npm
